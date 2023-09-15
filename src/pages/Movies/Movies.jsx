@@ -15,16 +15,15 @@ const Movies = () => {
     const form = event.currentTarget;
     const keywords = form.elements.query.value;
 
-    setSearchParams({query: keywords});
+    setSearchParams({ query: keywords });
 
     form.reset();
   };
 
   useEffect(() => {
     if (keywords) {
-        getMoviesByKeyword(keywords).then(movies => setMovies(movies));
+      getMoviesByKeyword(keywords).then(movies => setMovies(movies));
     }
-
   }, [keywords]);
 
   return (
@@ -36,7 +35,10 @@ const Movies = () => {
       <ul>
         {movies.map(movie => (
           <li key={movie.id}>
-            <Link to={'/movies/' + movie.id} state={{ from: location }}>
+            <Link
+              to={'/movies/' + movie.id}
+              state={{ from: location }}
+            >
               {movie.title}
             </Link>
           </li>

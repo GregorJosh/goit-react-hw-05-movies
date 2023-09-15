@@ -12,7 +12,7 @@ const Layout = () => {
       <header className={header}>
         <nav>
           <NavLink className={link} to="/">Home</NavLink>
-          <NavLink className={link} to="/movies">Movies</NavLink>
+          <NavLink className={link} to="movies">Movies</NavLink>
         </nav>
       </header>
       <Outlet />
