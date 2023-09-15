@@ -15,6 +15,8 @@ const Movies = () => {
     const form = event.currentTarget;
     const keywords = form.elements.query.value;
 
+    if (!keywords) return;
+
     setSearchParams({ query: keywords });
 
     form.reset();
