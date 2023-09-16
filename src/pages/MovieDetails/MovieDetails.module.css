@@ -1,0 +1,26 @@
+.card {
+  display: flex;
+  gap: 20px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.links {
+  display: flex;
+  gap: 10px;
+}
+
+.link {
+    padding: 10px;
+    color: var(--color-blue-dark);
+    border: 1px solid var(--color-blue-dark);
+    border-radius: 4px;
+  }
+  
+  .link:hover {
+    border: 1px solid var(--color-blue-light);
+  }

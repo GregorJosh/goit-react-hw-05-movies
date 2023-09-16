@@ -1,27 +1,17 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
 
 import { getTrendingMovies } from 'api/api';
 
+import MovieList from 'components/MovieList/MovieList';
+
 const Home = () => {
   const [movies, setMovies] = useState([]);
-  const location = useLocation();
 
   useEffect(() => {
     getTrendingMovies().then(movies => setMovies(movies));
   }, []);
 
-  return (
-    <ul>
-      {movies.map(movie => (
-        <li key={movie.id}>
-          <Link to={'movies/' + movie.id} state={{ from: location }}>
-            {movie.title}
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
+  return <MovieList movies={movies} />;
 };
 
 export default Home;

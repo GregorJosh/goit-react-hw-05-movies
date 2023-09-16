@@ -1,13 +1,18 @@
 import { useEffect, useState } from 'react';
-import { Link, useLocation, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 import { getMoviesByKeyword } from 'api/api';
+
+import MovieList from 'components/MovieList/MovieList';
+
+import styles from './Movies.module.css';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
-  const location = useLocation();
   const keywords = searchParams.get('query');
+
+  const { form, input, button } = styles;
 
   const onSubmit = event => {
     event.preventDefault();
@@ -30,22 +35,11 @@ const Movies = () => {
 
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <input type="text" name="query" />
-        <button>🔎</button>
+      <form className={form} onSubmit={onSubmit}>
+        <input className={input} type="text" name="query" placeholder='Search movies' />
+        <button className={button}>🔎</button>
       </form>
-      <ul>
-        {movies.map(movie => (
-          <li key={movie.id}>
-            <Link
-              to={'/movies/' + movie.id}
-              state={{ from: location }}
-            >
-              {movie.title}
-            </Link>
-          </li>
-        ))}
-      </ul>
+      <MovieList movies={movies} />
     </>
   );
 };
