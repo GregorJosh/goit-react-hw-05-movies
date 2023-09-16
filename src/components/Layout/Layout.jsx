@@ -6,24 +6,28 @@ import Container from 'components/Container/Container';
 import styles from './Layout.module.css';
 
 const Layout = () => {
-  const { header, link } = styles;
+  const { header, navigation, link } = styles;
 
   return (
-    <Container>
+    <>
       <header className={header}>
-        <nav>
-          <NavLink className={link} to="/">
-            Home
-          </NavLink>
-          <NavLink className={link} to="movies">
-            Movies
-          </NavLink>
-        </nav>
+        <Container>
+          <nav className={navigation}>
+            <NavLink className={link} to="/">
+              Home
+            </NavLink>
+            <NavLink className={link} to="movies">
+              Movies
+            </NavLink>
+          </nav>
+        </Container>
       </header>
       <Suspense fallback={<div>Loading Page Content...</div>}>
-        <Outlet />
+        <Container>
+          <Outlet />
+        </Container>
       </Suspense>
-    </Container>
+    </>
   );
 };
 

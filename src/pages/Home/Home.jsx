@@ -3,6 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 
 import { getTrendingMovies } from 'api/api';
 
+import styles from './Home.module.css';
+
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const location = useLocation();

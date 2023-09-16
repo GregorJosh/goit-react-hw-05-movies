@@ -1,3 +1,21 @@
 .header {
-  border: 1px solid blue;
+  padding: 0 0 20px;
+  
+  background-color: var(--color-blue-dark);
+}
+
+.navigation {
+  display: flex;
+  gap: 20px;
+}
+
+.link {
+  padding: 10px;
+  color: var(--color-pink-light);
+  border: 1px solid var(--color-blue-dark);
+  border-radius: 4px;
+}
+
+.link:hover {
+  border: 1px solid var(--color-pink-light);
 }
