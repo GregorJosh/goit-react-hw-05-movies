@@ -1,25 +1,16 @@
-import { Suspense, lazy } from 'react';
+import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import Cast from 'components/Cast/Cast';
-import Reviews from 'components/Reviews/Reviews';
+import Layout from 'components/Layout/Layout';
 
-import Home from 'pages/Home/Home';
-import MovieDetails from 'pages/MovieDetails/MovieDetails';
-import Movies from 'pages/Movies/Movies';
+const Home = lazy(() => import('pages/Home/Home'));
+const Movies = lazy(() => import('pages/Movies/Movies'));
+const MovieDetails = lazy(() => import('pages/MovieDetails/MovieDetails'));
+const Cast = lazy(() => import('pages/Cast/Cast'));
+const Reviews = lazy(() => import('pages/Reviews/Reviews'));
 
-const Layout = lazy(() => import('./components/Layout/Layout'));
-
-lazy(() => import('./components/Cast/Cast'));
-lazy(() => import('./components/Reviews/Reviews'));
-
-lazy(() => import('./pages/Home/Home'));
-lazy(() => import('./pages/Movies/Movies'));
-lazy(() => import('./pages/MovieDetails/MovieDetails'));
-
-const App = () => {
+export const App = () => {
   return (
-    <Suspense fallback={<div>Loading Page...</div>}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
@@ -30,8 +21,5 @@ const App = () => {
           </Route>
         </Route>
       </Routes>
-    </Suspense>
   );
 };
-
-export default App;

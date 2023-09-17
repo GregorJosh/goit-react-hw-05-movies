@@ -1,3 +1,5 @@
-.link:hover {
-    color: var(--color-pink-light);
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }

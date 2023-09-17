@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useLocation, useParams, Link, Outlet } from 'react-router-dom';
+import {
+  useLocation,
+  useParams,
+  Link,
+  NavLink,
+  Outlet,
+} from 'react-router-dom';
 
 import { getMovieById } from 'api/api';
 
@@ -21,7 +27,9 @@ const MovieDetails = () => {
 
   const { poster_path, title, release_date, vote_average, overview, genres } =
     movie;
-  const { card, content, links, link } = styles;
+  const { card, content, links, link, active, filters, details } = styles;
+
+  const setClass = ({ isActive }) => (isActive ? active : link);
 
   useEffect(() => {
     getMovieById(movieId).then(newMovie => setMovie(newMovie));
@@ -32,37 +40,49 @@ const MovieDetails = () => {
       <Link className={link} to={backLinkHRef}>
         &larr; Go Back
       </Link>
-      <div className={card}>
+      <section className={card}>
         <img src={poster_path} alt={`${title} movie poster`} />
-        <ul className={content}>
-          <li>
+        <div className={content}>
+          <header>
             <h1>{`${title} (${release_date})`}</h1>
             <p>User score: {vote_average}</p>
-          </li>
-          <li>
+          </header>
+          <div>
             <h3>Overview: </h3>
             <p>{overview}</p>
-          </li>
-          <li>
+          </div>
+          <div>
             <h3>Genres: </h3>
             <p>{genres.map(genre => genre.name + ' ')}</p>
+          </div>
+        </div>
+      </section>
+      <div className={filters}>
+        <p>Additional information: </p>
+        <ul className={links}>
+          <li>
+            <NavLink
+              className={setClass}
+              to="cast"
+              state={{ from: backLinkHRef }}
+            >
+              Cast
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={setClass}
+              to="reviews"
+              state={{ from: backLinkHRef }}
+            >
+              Reviews
+            </NavLink>
           </li>
         </ul>
       </div>
-      <p>Additional information: </p>
-      <ul className={links}>
-        <li>
-          <Link className={link} to="cast" state={{ from: backLinkHRef }}>
-            Cast
-          </Link>
-        </li>
-        <li>
-          <Link className={link} to="reviews" state={{ from: backLinkHRef }}>
-            Reviews
-          </Link>
-        </li>
-      </ul>
-      <Outlet />
+      <section className={details}>
+        <Outlet />
+      </section>
     </>
   );
 };

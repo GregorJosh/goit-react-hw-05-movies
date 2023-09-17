@@ -10,18 +10,34 @@
   gap: 20px;
 }
 
+.filters {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
 .links {
   display: flex;
   gap: 10px;
 }
 
 .link {
-    padding: 10px;
-    color: var(--color-blue-dark);
-    border: 1px solid var(--color-blue-dark);
-    border-radius: 4px;
-  }
-  
-  .link:hover {
-    border: 1px solid var(--color-blue-light);
-  }
+  padding: 10px;
+  color: var(--color-blue-dark);
+  border: 1px solid var(--color-blue-dark);
+  border-radius: 4px;
+}
+
+.link:hover {
+  border: 1px solid var(--color-blue-light);
+}
+
+.active {
+  composes: link;
+
+  background-color: rgba(252, 82, 255, 0.14);
+}
+
+.details {
+  padding: 1em 0 2em;
+}

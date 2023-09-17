@@ -6,17 +6,19 @@ import Container from 'components/Container/Container';
 import styles from './Layout.module.css';
 
 const Layout = () => {
-  const { header, navigation, link } = styles;
+  const { header, navigation, link, active } = styles;
+
+  const setClass = ({ isActive }) => (isActive ? active : link);
 
   return (
     <>
       <header className={header}>
         <Container>
           <nav className={navigation}>
-            <NavLink className={link} to="/">
+            <NavLink className={setClass} to="/">
               Home
             </NavLink>
-            <NavLink className={link} to="movies">
+            <NavLink className={setClass} to="movies">
               Movies
             </NavLink>
           </nav>
