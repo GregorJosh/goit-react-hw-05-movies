@@ -4,6 +4,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 import Container from 'components/Container/Container';
 
 import styles from './Layout.module.css';
+import Loader from 'components/Loader/Loader';
 
 const Layout = () => {
   const { header, navigation, link, active } = styles;
@@ -24,7 +25,7 @@ const Layout = () => {
           </nav>
         </Container>
       </header>
-      <Suspense fallback={<div>Loading Page Content...</div>}>
+      <Suspense fallback={<Loader />}>
         <Container>
           <Outlet />
         </Container>
