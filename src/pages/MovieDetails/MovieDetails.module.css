@@ -1,3 +1,17 @@
+.back-link {
+  color: var(--color-blue-dark);
+}
+
+.back-link:hover {
+  color: var(--color-blue-light);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .card {
   display: flex;
   gap: 20px;
