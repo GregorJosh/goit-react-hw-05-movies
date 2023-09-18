@@ -9,6 +9,8 @@ import {
 
 import { getMovieById } from 'api/api';
 
+import imgPlaceholder from 'images/image-placeholder.svg';
+
 import styles from './MovieDetails.module.css';
 
 const MovieDetails = () => {
@@ -27,8 +29,17 @@ const MovieDetails = () => {
 
   const { poster_path, title, release_date, vote_average, overview, genres } =
     movie;
-  const { section, card, content, links, link, active, filters, details } =
-    styles;
+  const {
+    section,
+    card,
+    content,
+    links,
+    link,
+    active,
+    filters,
+    details,
+    image,
+  } = styles;
 
   const setClass = ({ isActive }) => (isActive ? active : link);
 
@@ -44,7 +55,15 @@ const MovieDetails = () => {
 
       <section className={section}>
         <div className={card}>
-          <img src={poster_path} alt={`${title} movie poster`} />
+          {poster_path ? (
+            <img
+              className={image}
+              src={poster_path}
+              alt={`${title} movie poster`}
+            />
+          ) : (
+            <img className={image} src={imgPlaceholder} alt="Placeholder" />
+          )}
           <div className={content}>
             <header>
               <h1>{`${title} (${release_date})`}</h1>

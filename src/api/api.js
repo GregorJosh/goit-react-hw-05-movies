@@ -53,7 +53,9 @@ export async function getMoviesByKeyword(keyword) {
 export async function getMovieById(movieId) {
   const movie = await sendRequest('movie/' + movieId);
 
-  movie.poster_path = 'http://image.tmdb.org/t/p/w185' + movie.poster_path;
+  if (movie.poster_path) {
+    movie.poster_path = 'http://image.tmdb.org/t/p/w185' + movie.poster_path;
+  }
 
   return movie;
 }
@@ -61,14 +63,12 @@ export async function getMovieById(movieId) {
 export async function getMovieCredits(movieId) {
   const credits = await sendRequest(`movie/${movieId}/credits`);
 
-  return credits.cast.filter(cast => {
-    if (cast.profile_path === null) {
-      return false;
+  return credits.cast.map(cast => {
+    if (cast.profile_path) {
+      cast.profile_path = 'http://image.tmdb.org/t/p/w185' + cast.profile_path;
     }
 
-    cast.profile_path = 'http://image.tmdb.org/t/p/w185' + cast.profile_path;
-
-    return true;
+    return cast;
   });
 }
 

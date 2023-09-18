@@ -18,6 +18,10 @@
   align-items: flex-start;
 }
 
+.image {
+  width: 152px;
+}
+
 .content {
   display: flex;
   flex-direction: column;
