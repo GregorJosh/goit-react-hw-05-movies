@@ -3,10 +3,11 @@ import axios from 'axios';
 const API_KEY =
   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkYjg0NzNlZDkyMjFiZjUxZjY1ZjYyMzFmZWM1ZGNhNiIsInN1YiI6IjY0YjlhODFmMzAwOWFhMDBjNWI3OTc1MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.-kZ0dgbGdwQSV2jydkgQdOLeOv-bFL8HeHwItjiQ9dk';
 
-const host = 'api.themoviedb.org';
-const base = 'https://' + host;
+const base = 'https://api.themoviedb.org';
 const path = '/3/';
 const url = new URL(path, base);
+
+const imageBaseUrl = "https://image.tmdb.org/t/p/";
 
 async function sendRequest(path) {
   try {
@@ -41,20 +42,32 @@ async function sendRequest(path) {
 export async function getTrendingMovies() {
   const movies = await sendRequest('trending/movie/day');
 
-  return movies.results;
+  return movies.results.map(movie => {
+    if (movie.poster_path) {
+      movie.poster_path = imageBaseUrl + 'w185' + movie.poster_path;
+    }
+  
+    return movie;
+  });
 }
 
 export async function getMoviesByKeyword(keyword) {
   const movies = await sendRequest('search/movie?query=' + keyword);
 
-  return movies.results;
+  return movies.results.map(movie => {
+    if (movie.poster_path) {
+      movie.poster_path = imageBaseUrl + 'w185' + movie.poster_path;
+    }
+  
+    return movie;
+  });
 }
 
 export async function getMovieById(movieId) {
   const movie = await sendRequest('movie/' + movieId);
 
   if (movie.poster_path) {
-    movie.poster_path = 'http://image.tmdb.org/t/p/w185' + movie.poster_path;
+    movie.poster_path = imageBaseUrl + 'w185' + movie.poster_path;
   }
 
   return movie;
@@ -65,7 +78,7 @@ export async function getMovieCredits(movieId) {
 
   return credits.cast.map(cast => {
     if (cast.profile_path) {
-      cast.profile_path = 'http://image.tmdb.org/t/p/w185' + cast.profile_path;
+      cast.profile_path = imageBaseUrl + 'w185' + cast.profile_path;
     }
 
     return cast;
