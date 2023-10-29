@@ -4,18 +4,17 @@ import { Link, useLocation } from 'react-router-dom';
 import styles from './MovieListItem.module.css';
 
 const MovieListItem = ({ movie }) => {
-  const { id, title } = movie;
-  const { item, link } = styles;
+  const { id, title, poster_path } = movie;
+  const { item, image } = styles;
   const { pathname, search } = useLocation();
 
   return (
     <li className={item}>
       <Link
-        className={link}
         to={'/movies/' + id}
         state={{ from: pathname + search }}
       >
-        {title}
+        <img className={image} src={poster_path} alt={title + ' movie poster'} />
       </Link>
     </li>
   );
