@@ -7,7 +7,27 @@ const base = 'https://api.themoviedb.org';
 const path = '/3/';
 const url = new URL(path, base);
 
-const imageBaseUrl = "https://image.tmdb.org/t/p/";
+function setImagesSize(results, fieldName, size) {
+  const imageBaseUrl = 'https://image.tmdb.org/t/p/';
+
+  if (Array.isArray(results)) {
+    return results.map(result => {
+      if (result[fieldName]) {
+        result[fieldName] = imageBaseUrl + size + result[fieldName];
+      }
+
+      return result;
+    });
+  } else {
+    const result = results;
+
+    if (result[fieldName]) {
+      result[fieldName] = imageBaseUrl + size + result[fieldName];
+    }
+
+    return result;
+  }
+}
 
 async function sendRequest(path) {
   try {
@@ -42,47 +62,25 @@ async function sendRequest(path) {
 export async function getTrendingMovies() {
   const movies = await sendRequest('trending/movie/day');
 
-  return movies.results.map(movie => {
-    if (movie.poster_path) {
-      movie.poster_path = imageBaseUrl + 'w185' + movie.poster_path;
-    }
-  
-    return movie;
-  });
+  return setImagesSize(movies.results, 'poster_path', 'w185');
 }
 
 export async function getMoviesByKeyword(keyword) {
   const movies = await sendRequest('search/movie?query=' + keyword);
 
-  return movies.results.map(movie => {
-    if (movie.poster_path) {
-      movie.poster_path = imageBaseUrl + 'w185' + movie.poster_path;
-    }
-  
-    return movie;
-  });
+  return setImagesSize(movies.results, 'poster_path', 'w185');
 }
 
 export async function getMovieById(movieId) {
   const movie = await sendRequest('movie/' + movieId);
 
-  if (movie.poster_path) {
-    movie.poster_path = imageBaseUrl + 'w185' + movie.poster_path;
-  }
-
-  return movie;
+  return setImagesSize(movie, 'poster_path', 'w185');
 }
 
 export async function getMovieCredits(movieId) {
   const credits = await sendRequest(`movie/${movieId}/credits`);
 
-  return credits.cast.map(cast => {
-    if (cast.profile_path) {
-      cast.profile_path = imageBaseUrl + 'w185' + cast.profile_path;
-    }
-
-    return cast;
-  });
+  return setImagesSize(credits.cast, 'profile_path', 'w185');
 }
 
 export async function getMovieReviews(movieId) {
